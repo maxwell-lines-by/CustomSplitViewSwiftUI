@@ -34,7 +34,6 @@ class SplitViewModel: ObservableObject {
     
     // called when window is resizing
     public func setAvailableWidth(to newVal: CGFloat){
-        print("set availableWidth to \(newVal)")
         availableWidth = newVal
         
         // checks if window is small enough that the middle column should be collapsed

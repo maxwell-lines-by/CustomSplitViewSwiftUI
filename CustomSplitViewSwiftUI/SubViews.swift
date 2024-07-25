@@ -10,6 +10,8 @@ struct SideBar: View {
             Text("SideBar")
         }
         .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.yellow)
     }
 }
 
@@ -28,6 +30,8 @@ struct MainLayout: View {
             }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.red)
         .padding()
     }
 }
@@ -49,5 +53,6 @@ struct Details: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.blue)
     }
 }
