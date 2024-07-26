@@ -12,8 +12,11 @@ class SplitViewModel: ObservableObject {
     
     let mainLayoutMinWidth = 400.0
     
-    private var showDetails = false
-    private var showMainColumn = true
+    @Published
+    var showDetails = false
+    
+    @Published
+    var showMainColumn = true
     
     /// changes when window is resized, represents total width of window
     @Published
@@ -28,7 +31,39 @@ class SplitViewModel: ObservableObject {
     
     var mainLayoutWidth: CGFloat {
         get {
-            return availableWidth - (sidebarWidth + detailsWidth)
+            return showMainColumn ? availableWidth - (sidebarWidth + detailsWidth) : mainLayoutMinWidth
+        }
+    }
+    
+    var swipeEventMontior: Any?
+    let swipeThreshold: CGFloat = 20
+
+    init(){
+        addTwoFingerSwipe()
+    }
+    
+    func addTwoFingerSwipe() {
+        swipeEventMontior = NSEvent.addLocalMonitorForEvents(matching: [.scrollWheel]) { [weak self] event in
+            self?.handleScrollEvent(event)
+            return event
+        }
+    }
+    
+    @objc
+    func handleScrollEvent(_ event: NSEvent) {
+        if event.phase == .changed {
+            // The gesture is ongoing
+            let deltaX = event.scrollingDeltaX
+            let deltaY = event.scrollingDeltaY
+
+            // Determine the direction of the swipe
+            if abs(deltaX) > abs(deltaY) {
+                if deltaX > swipeThreshold && showDetails {
+                    Task { @MainActor in
+                        setShowDetails(to: false)
+                    }
+                }
+            }
         }
     }
     
@@ -42,12 +77,15 @@ class SplitViewModel: ObservableObject {
             return
         // checks if window is large enough that the middle column can be expanded
         } else if !showMainColumn {
-            detailsWidth = availableWidth - sidebarWidth
-                if detailsWidth > mainLayoutMinWidth + detailsIdealWidth{
+                if availableWidth - sidebarWidth > mainLayoutMinWidth + detailsIdealWidth{
                     withAnimation{
+                        detailsWidth = availableWidth - sidebarWidth
+
                         detailsWidth = availableWidth - (sidebarWidth + mainLayoutMinWidth)
                         showMainColumn = true
                     }
+                } else {
+                    detailsWidth = availableWidth - sidebarWidth
                 }
             }
         }
@@ -93,8 +131,8 @@ class SplitViewModel: ObservableObject {
         if showDetails {
             setDetailsWidth(to: detailsIdealWidth)
         } else {
-            showMainColumn = true
             setDetailsWidth(to: 0)
+            showMainColumn = true
         }
     }
     

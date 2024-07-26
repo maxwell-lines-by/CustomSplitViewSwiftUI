@@ -13,5 +13,6 @@ struct __Col_SwiftUIApp: App {
         WindowGroup {
             SplitView()
         }
+        .windowResizability(.contentSize)
     }
 }
