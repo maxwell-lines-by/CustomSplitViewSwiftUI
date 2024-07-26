@@ -18,7 +18,7 @@ struct SplitView: View {
                     .frame(width: viewModel.sidebarWidth)
                     .frame(maxHeight: .infinity)
                     .zIndex(10)
-                ResizeHandle(width: $viewModel.sidebarWidth, minWidth: viewModel.sideBarMinWidth, maxWidth: viewModel.sideBarMaxWidth, flipped: false, isCollapsible: false, publishWidth: viewModel.setSideBarWidth)
+                ResizeHandle(width: viewModel.sidebarWidth, minWidth: viewModel.sideBarMinWidth, maxWidth: viewModel.sideBarMaxWidth, flipped: false, isCollapsible: false, publishWidth: viewModel.setSideBarWidth)
                
                 if viewModel.showMainColumn {
                     MainLayout(toggleShowDetails: viewModel.toggleShowDetails)
@@ -29,7 +29,7 @@ struct SplitView: View {
                 }
                 
                 if viewModel.showDetails && viewModel.showDetails {
-                    ResizeHandle(width: $viewModel.detailsWidth, minWidth: viewModel.detailsMinWidth, maxWidth: viewModel.detailsMaxWidth, flipped: true, isCollapsible: true, publishWidth: viewModel.setDetailsWidth)
+                    ResizeHandle(width: viewModel.detailsWidth, minWidth: viewModel.detailsMinWidth, maxWidth: viewModel.detailsMaxWidth, flipped: true, isCollapsible: true, publishWidth: viewModel.setDetailsWidth)
                 }
                 
                 if viewModel.showDetails {

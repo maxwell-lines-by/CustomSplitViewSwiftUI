@@ -23,10 +23,10 @@ class SplitViewModel: ObservableObject {
     private(set) var availableWidth: CGFloat = 1000
     
     @Published
-    var sidebarWidth: CGFloat = 200
+    private(set) var sidebarWidth: CGFloat = 200
     
     @Published
-    var detailsWidth: CGFloat = 0
+    private(set) var detailsWidth: CGFloat = 0
  
     
     var mainLayoutWidth: CGFloat {

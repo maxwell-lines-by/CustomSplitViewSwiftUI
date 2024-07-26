@@ -2,8 +2,7 @@ import Foundation
 import SwiftUI
 
 struct ResizeHandle: View {
-    @Binding
-    var width: CGFloat
+    let width: CGFloat
     
     private let minWidth: CGFloat
     private let maxWidth: CGFloat
@@ -11,13 +10,13 @@ struct ResizeHandle: View {
     private let isCollapsible: Bool
     private let publishWidth : (CGFloat) -> Void
     
-    init(width: Binding<CGFloat>, minWidth: CGFloat, maxWidth: CGFloat, flipped: Bool, isCollapsible: Bool, publishWidth: @escaping (CGFloat) -> Void) {
+    init(width: CGFloat, minWidth: CGFloat, maxWidth: CGFloat, flipped: Bool, isCollapsible: Bool, publishWidth: @escaping (CGFloat) -> Void) {
         self.minWidth = minWidth
         self.maxWidth = maxWidth
         self.flipped = flipped
         self.isCollapsible = isCollapsible
         self.publishWidth = publishWidth
-        self._width = width
+        self.width = width
     }
     
     @State private var isCollapsed = false
