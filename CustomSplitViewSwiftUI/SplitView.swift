@@ -27,8 +27,13 @@ struct SplitView: View {
                     .clipped()
                     .transition(.move(edge: .leading))
                 }
-                if viewModel.showDetails {
+                
+                if viewModel.showDetails && viewModel.showDetails {
                     ResizeHandle(width: $viewModel.detailsWidth, minWidth: viewModel.detailsMinWidth, maxWidth: viewModel.detailsMaxWidth, flipped: true, isCollapsible: true, publishWidth: viewModel.setDetailsWidth)
+                }
+                
+                if viewModel.showDetails {
+                   
                     Details(setShowDetails: viewModel.setShowDetails)
                         .frame(width: viewModel.detailsWidth)
                         .frame(maxHeight: .infinity)
