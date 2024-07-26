@@ -112,7 +112,6 @@ class SplitViewModel: ObservableObject {
 
         // check if main column should be collapsed
         hideMainColumnIfNeeded()
-
     }
     
     public func setSideBarWidth(to newVal: CGFloat){
